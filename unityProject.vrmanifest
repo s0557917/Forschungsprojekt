@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.forschungsprojekt_vr.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "D:\\Documentos\\HTW\\Master\\3.WS_2020-2021\\FP_ICW\\Projects\\Forschungsprojekt_VR\\Forschungsprojekt_VR\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "Forschungsprojekt_VR [Testing]"
+        }
+      }
+    }
+  ]
+}

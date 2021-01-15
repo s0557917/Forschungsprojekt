@@ -10,22 +10,6 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
-Library/
-library/
-Temp/
-temp/
-Obj/
-obj/
-Build/
-build/
-Builds/
-builds/
-Logs/
-logs/
-MemoryCaptures/
-memoryCaptures/
-
-
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
@@ -74,6 +58,3 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-Forschungsprojekt/Library/
-Forschungsprojekt/obj/
-Forschungsprojekt/Logs/
