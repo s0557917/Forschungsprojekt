@@ -11,6 +11,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI textPlayerOne;
     public TextMeshProUGUI textPlayerTwo;
 
+    public GameObject studyManager;
+
     [SerializeField]
     private GameObject teleportAreaOne;
     [SerializeField]
@@ -43,6 +45,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
         //NEEDS TO BE TESTED
         if (PhotonNetwork.IsMasterClient)
         {
+
+            PhotonNetwork.Instantiate(studyManager.name, Vector3.zero, Quaternion.identity, 0);
             _playerNumber = 1;
 
             vrPlayer.transform.position = new Vector3(0, 0, -1);
