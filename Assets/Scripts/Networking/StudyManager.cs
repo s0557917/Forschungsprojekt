@@ -59,6 +59,7 @@ public class StudyManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player other)
     {
+        Debug.Log("### JOINED ROOM :: " + PhotonNetwork.CurrentRoom.Name);
         Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
     }
 

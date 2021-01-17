@@ -40,7 +40,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         if (_isConnecting)
         {
-            PhotonNetwork.JoinRandomRoom();
+            PhotonNetwork.JoinOrCreateRoom("ExperimentRoom", new RoomOptions { MaxPlayers = _maxPlayersInRoom }, TypedLobby.Default);
             _isConnecting = false;
         }
 
@@ -56,18 +56,25 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         statusText.text = "Joining a Room failed";
-
-        PhotonNetwork.JoinOrCreateRoom("ExperimentRoom", new RoomOptions { MaxPlayers = _maxPlayersInRoom}, TypedLobby.Default);
+        Debug.Log("Joining a Room failed");
+        PhotonNetwork.CreateRoom("ExperimentRoom", new RoomOptions { MaxPlayers = _maxPlayersInRoom}, TypedLobby.Default);
     }
 
     public override void OnJoinedRoom()
     {
         statusText.text = "Joined a room succesfully - " + PhotonNetwork.CurrentRoom.Name;
 
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("######### IS MASTERCLIENT " + PhotonNetwork.CurrentRoom.Name);
+        }
+
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1 && PhotonNetwork.IsMasterClient)
         {
             statusText.text = "We load the 'Room for 1' ";
             //PlayerPrefs.SetInt("PlayerNumber", 1);
+            Debug.Log("LOADED MAIN LEVEL");
             PhotonNetwork.LoadLevel("Main");
         }
         else
