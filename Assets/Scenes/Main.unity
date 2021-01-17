@@ -149,7 +149,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100037141}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -1.703}
+  m_LocalPosition: {x: 0, y: 0, z: -1.694}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2132652160}
@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 820355759}
   - component: {fileID: 820355758}
   m_Layer: 0
-  m_Name: StudyManager
+  m_Name: RoomManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,8 +250,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d9d36cbcc320354cbfeffe8beb6f60f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textPlayerOne: {fileID: 1178557903}
-  textPlayerTwo: {fileID: 1951295787177332295}
+  textPlayerOne: {fileID: 1951295787177332295}
+  textPlayerTwo: {fileID: 1178557903}
+  teleportAreaOne: {fileID: 7602302566542363253}
+  teleportAreaTwo: {fileID: 7602302566542363252}
   _playerNumber: 0
   vrPlayer: {fileID: 0}
   playerProxy: {fileID: 8342938078416728954, guid: fd8d83763e9e2ab42b3abc157222f406,
@@ -426,6 +428,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1178557901}
   m_CullTransparentMesh: 0
+--- !u!1 &1237443530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1237443532}
+  - component: {fileID: 1237443531}
+  m_Layer: 0
+  m_Name: StudyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1237443531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237443530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6214cd9d86b1b6348ad50f708dc3fb4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1237443532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237443530}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.31842542, y: 0.7169837, z: 0.9663693}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1484727663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3410,10 +3455,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7602302565267416050, guid: 0a92523da3551b74b9b8cc0f34dc3979,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602302565267416050, guid: 0a92523da3551b74b9b8cc0f34dc3979,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerOneTeleport
+      objectReference: {fileID: 0}
     - target: {fileID: 7602302565606137257, guid: 0a92523da3551b74b9b8cc0f34dc3979,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602302565606137257, guid: 0a92523da3551b74b9b8cc0f34dc3979,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerTwoTeleport
       objectReference: {fileID: 0}
     - target: {fileID: 7602302566233969378, guid: 0a92523da3551b74b9b8cc0f34dc3979,
         type: 3}
@@ -3477,3 +3537,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a92523da3551b74b9b8cc0f34dc3979, type: 3}
+--- !u!1 &7602302566542363252 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7602302565606137257, guid: 0a92523da3551b74b9b8cc0f34dc3979,
+    type: 3}
+  m_PrefabInstance: {fileID: 7602302566542363251}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7602302566542363253 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7602302565267416050, guid: 0a92523da3551b74b9b8cc0f34dc3979,
+    type: 3}
+  m_PrefabInstance: {fileID: 7602302566542363251}
+  m_PrefabAsset: {fileID: 0}

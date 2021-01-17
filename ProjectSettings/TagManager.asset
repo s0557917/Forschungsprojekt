@@ -8,6 +8,9 @@ TagManager:
   - PlayerProxy
   - LevelDataContainer
   - VRPlayer
+  - RightHand_VR
+  - LeftHand_VR
+  - Head_VR
   layers:
   - Default
   - TransparentFX
