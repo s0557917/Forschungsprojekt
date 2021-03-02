@@ -37,6 +37,8 @@ public class SynchronizeLocalProxy : MonoBehaviour
 
     private void Start()
     {
+        DontDestroyOnLoad(this.transform);
+
         _rightHandJoints = new Transform[26];
         _leftHandJoints = new Transform[26];
 

@@ -11,6 +11,7 @@ TagManager:
   - RightHand_VR
   - LeftHand_VR
   - Head_VR
+  - StudyManager
   layers:
   - Default
   - TransparentFX

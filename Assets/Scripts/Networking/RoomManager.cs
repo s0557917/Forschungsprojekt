@@ -17,8 +17,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     private GameObject teleportAreaOne;
     [SerializeField]
     private GameObject teleportAreaTwo;
-    [SerializeField]
-    private int _playerNumber;
+
     [SerializeField]
     private GameObject vrPlayer;
     [SerializeField]
@@ -37,17 +36,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
             Debug.Log("VRPLAYER:: " + vrPlayer.name);
         }
 
-        if (PlayerPrefs.HasKey("PlayerNumber"))
-        {
-            _playerNumber = PlayerPrefs.GetInt("PlayerNumber");
-        }
-
-        //NEEDS TO BE TESTED
         if (PhotonNetwork.IsMasterClient)
         {
 
-            PhotonNetwork.Instantiate(studyManager.name, Vector3.zero, Quaternion.identity, 0);
-            _playerNumber = 1;
+            InstantiateStudyManager();
 
             vrPlayer.transform.position = new Vector3(0, 0, -1);
             vrPlayer.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -57,7 +49,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            _playerNumber = 2;
 
             vrPlayer.transform.position = new Vector3(0, 0, 1);
             vrPlayer.transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -71,9 +62,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
         synchronizer.head = GameObject.FindGameObjectWithTag("Head_VR");
         synchronizer.rightHand = GameObject.FindGameObjectWithTag("RightHand_VR");
         synchronizer.leftHand = GameObject.FindGameObjectWithTag("LeftHand_VR");
-        
-        textPlayerOne.text = "Connected as Player " + _playerNumber;
-        textPlayerTwo.text = "Connected as Player " + _playerNumber;
+    }
+
+    private void InstantiateStudyManager()
+    {
+        if (!GameObject.FindGameObjectWithTag("StudyManager"))
+        {
+            PhotonNetwork.Instantiate(studyManager.name, Vector3.zero, Quaternion.identity, 0);
+        }
     }
 
     public override void OnPlayerEnteredRoom(Player other)

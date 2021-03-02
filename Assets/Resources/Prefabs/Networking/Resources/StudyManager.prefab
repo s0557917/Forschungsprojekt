@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8724513573892110388}
   - component: {fileID: 8724513573892110387}
-  - component: {fileID: 8724513573892110389}
+  - component: {fileID: 8518964729262812697}
   m_Layer: 0
   m_Name: StudyManager
-  m_TagString: Untagged
+  m_TagString: StudyManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,8 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVisualizationMethod: 0
   remainingVisualizations: 
-  isPlayerOneFinished: 0
---- !u!114 &8724513573892110389
+  hasPlayerOneFinishedExperiment: 0
+  hasPlayerTwoFinishedExperiment: 0
+  roomManager: {fileID: 0}
+--- !u!114 &8518964729262812697
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
