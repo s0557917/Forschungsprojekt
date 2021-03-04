@@ -39,6 +39,7 @@ public class StudyManager : MonoBehaviourPun
         hasPlayerTwoFinishedExperiment = false;
 
         random = new System.Random();
+        remainingVisualizations = new List<int> { 1, 2, 3, 4 };
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -121,6 +122,9 @@ public class StudyManager : MonoBehaviourPun
             }
 
             SetupAndLaunchEvaluation();
+
+            //Write times to file
+            Debug.Log("Start: " + startingTime.ToLongTimeString() + " Ending: " + endingTime.ToLongTimeString() + " = " + experimentDuration.TotalMinutes);
         }
     }
 

@@ -11,8 +11,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI textPlayerOne;
     public TextMeshProUGUI textPlayerTwo;
 
-    public GameObject studyManager;
-
     [SerializeField]
     private GameObject teleportAreaOne;
     [SerializeField]
@@ -23,35 +21,32 @@ public class RoomManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject playerProxy;
 
+    Vector3 startingPositionPlayerOne;
+    Vector3 startingRotationPlayerOne;
+    Vector3 startingPositionPlayerTwo;
+    Vector3 startingRotationPlayerTwo;
+
     public void Start()
     {
-        vrPlayer = GameObject.FindGameObjectWithTag("VRPlayer");
+        startingPositionPlayerOne = new Vector3(0, 0, -1);
+        startingRotationPlayerOne = new Vector3(0, 0, 0);
+        startingPositionPlayerTwo = new Vector3(0, 0, 1);
+        startingRotationPlayerTwo = new Vector3(0, 180, 0);
 
-        if (vrPlayer == null)
-        {
-            Debug.Log("VRPlayer IS NULL!");
-        }
-        else
-        {
-            Debug.Log("VRPLAYER:: " + vrPlayer.name);
-        }
+        vrPlayer = GameObject.FindGameObjectWithTag("VRPlayer");
 
         if (PhotonNetwork.IsMasterClient)
         {
-
-            InstantiateStudyManager();
-
-            vrPlayer.transform.position = new Vector3(0, 0, -1);
-            vrPlayer.transform.rotation = Quaternion.Euler(0, 0, 0);
+            vrPlayer.transform.position = startingPositionPlayerOne;
+            vrPlayer.transform.eulerAngles = startingRotationPlayerOne;
 
             teleportAreaOne.SetActive(true);
 
         }
         else
         {
-
-            vrPlayer.transform.position = new Vector3(0, 0, 1);
-            vrPlayer.transform.rotation = Quaternion.Euler(0, 180, 0);
+            vrPlayer.transform.position = startingPositionPlayerTwo;
+            vrPlayer.transform.eulerAngles = startingRotationPlayerTwo;
 
             teleportAreaTwo.SetActive(true);
         }
@@ -62,14 +57,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         synchronizer.head = GameObject.FindGameObjectWithTag("Head_VR");
         synchronizer.rightHand = GameObject.FindGameObjectWithTag("RightHand_VR");
         synchronizer.leftHand = GameObject.FindGameObjectWithTag("LeftHand_VR");
-    }
-
-    private void InstantiateStudyManager()
-    {
-        if (!GameObject.FindGameObjectWithTag("StudyManager"))
-        {
-            PhotonNetwork.Instantiate(studyManager.name, Vector3.zero, Quaternion.identity, 0);
-        }
     }
 
     public override void OnPlayerLeftRoom(Player other)
@@ -104,13 +91,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if (player == 1)
         {
-            vrPlayer.transform.position = new Vector3(0, 0, -1);
-            vrPlayer.transform.rotation = Quaternion.Euler(0, 0, 0);
+            vrPlayer.transform.position = startingPositionPlayerOne;
+            vrPlayer.transform.eulerAngles = startingRotationPlayerOne;
         }
         else
         {
-            vrPlayer.transform.position = new Vector3(0, 0, 1);
-            vrPlayer.transform.rotation = Quaternion.Euler(0, 180, 0);
+            vrPlayer.transform.position = startingPositionPlayerTwo;
+            vrPlayer.transform.eulerAngles = startingRotationPlayerTwo;
         }
     }
 }
