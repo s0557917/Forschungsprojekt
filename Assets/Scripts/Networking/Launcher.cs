@@ -65,13 +65,18 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         statusText.text = "Joined a room succesfully - " + PhotonNetwork.CurrentRoom.Name;
+    }
 
-        if (PhotonNetwork.IsMasterClient)
+    public override void OnPlayerEnteredRoom(Player other)
+    {
+        if (PhotonNetwork.IsMasterClient && (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount))
         {
             statusText.text = "We load the 'Room for 1' ";
             Debug.Log("LOADED MAIN LEVEL");
             PhotonNetwork.LoadLevel("Main");
         }
+
+
     }
 
     #endregion

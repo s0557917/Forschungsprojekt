@@ -160,7 +160,7 @@ public class StudyManager : MonoBehaviourPun
                 this.photonView.RPC("GetExperimentTimes", RpcTarget.MasterClient);
             }
 
-            PhotonNetwork.LoadLevel("Evaluation");
+            roomManager.LeaveRoom();
         }
     }
 

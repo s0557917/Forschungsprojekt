@@ -72,12 +72,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnPlayerEnteredRoom(Player other)
-    {
-        Debug.Log("### JOINED ROOM :: " + PhotonNetwork.CurrentRoom.Name);
-        Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
-    }
-
     public override void OnPlayerLeftRoom(Player other)
     {
         Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
@@ -93,7 +87,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         SceneManager.LoadScene(2);
     }
 
-    //TODO Remove null return
     private GameObject GetChildWithTag(string tag)
     {
         foreach (Transform child in vrPlayer.transform)
