@@ -84,7 +84,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(0);
     }
 
     private GameObject GetChildWithTag(string tag)
@@ -98,5 +98,19 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
 
         return null;
+    }
+
+    public void ResetPlayerToOriginalPosition(int player)
+    {
+        if (player == 1)
+        {
+            vrPlayer.transform.position = new Vector3(0, 0, -1);
+            vrPlayer.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            vrPlayer.transform.position = new Vector3(0, 0, 1);
+            vrPlayer.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 }

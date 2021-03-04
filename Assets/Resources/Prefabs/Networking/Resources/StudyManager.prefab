@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8724513573892110388}
   - component: {fileID: 8724513573892110387}
-  - component: {fileID: 8518964729262812697}
+  - component: {fileID: 697103891918274778}
+  - component: {fileID: -4183629001264170872}
   m_Layer: 0
   m_Name: StudyManager
   m_TagString: StudyManager
@@ -44,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6214cd9d86b1b6348ad50f708dc3fb4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8518964729262812697
+--- !u!114 &697103891918274778
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,3 +67,15 @@ MonoBehaviour:
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-4183629001264170872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8724513573892110386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 764d0aaadc8f36247907a39cf03958d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

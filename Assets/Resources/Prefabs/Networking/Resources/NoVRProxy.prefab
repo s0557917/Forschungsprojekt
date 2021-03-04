@@ -371,12 +371,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8012237972991317551}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36a20c8e93dfd0345833f671c8108749, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e59b87dcc9309741b61f6169909166b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  head: {fileID: 8012237972199166898}
-  leftHand: {fileID: 8012237972358257027}
-  rightHand: {fileID: 8012237971717664512}
 --- !u!114 &8012237972991317555
 MonoBehaviour:
   m_ObjectHideFlags: 0

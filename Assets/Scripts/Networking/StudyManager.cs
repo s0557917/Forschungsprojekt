@@ -2,33 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using System.Linq;
 using UnityEngine.SceneManagement;
 using System;
+using System.Linq;
 
 public class StudyManager : MonoBehaviourPun
 {
-    public static StudyManager _instance;
-    public static StudyManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = GameObject.FindObjectOfType<StudyManager>();
-
-                if (_instance == null)
-                {
-                    GameObject studyManagerObject = new GameObject("Study Manager");
-                    _instance = studyManagerObject.AddComponent<StudyManager>();
-                }
-            }
-
-            return _instance;
-        }
-
-    }
-    
     private int currentVisualizationMethod;
     private List<int> remainingVisualizations;
 
@@ -37,57 +16,38 @@ public class StudyManager : MonoBehaviourPun
 
     private RoomManager roomManager;
 
-    System.Random random;
+    private System.Random random;
 
     private DateTime startingTime;
     private DateTime endingTime;
     private TimeSpan experimentDuration;
 
+    private int player;
+
+    EvaluationManager evaluationManager;
+
     private void Awake()
     {
         roomManager = GameObject.FindObjectOfType<RoomManager>();
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
     
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (SceneManager.GetActiveScene().name == "Main")
-        {
-            startingTime = new DateTime();
-            endingTime = new DateTime();
-            experimentDuration = new TimeSpan();
-
-            hasPlayerOneFinishedExperiment = false;
-            hasPlayerTwoFinishedExperiment = false;
-
-            if (PhotonNetwork.IsMasterClient)
-            {
-                GetNextVisualization();
-            }
-            else
-            {
-                this.photonView.RPC("GetCurrentVisualizationMethod", RpcTarget.MasterClient);
-            }
-        }
-
-    }
-
     void Start()
     {
+        evaluationManager = this.GetComponent<EvaluationManager>();
+
         hasPlayerOneFinishedExperiment = false;
         hasPlayerTwoFinishedExperiment = false;
 
-        DontDestroyOnLoad(this.transform);
-
         random = new System.Random();
-        remainingVisualizations = new List<int>() { 1, 2, 3, 4 };
 
         if (PhotonNetwork.IsMasterClient)
         {
+            player = 1;
             GetNextVisualization();
         }
         else
         {
+            player = 2;
             this.photonView.RPC("GetCurrentVisualizationMethod", RpcTarget.MasterClient);
         }
 
@@ -97,7 +57,7 @@ public class StudyManager : MonoBehaviourPun
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-            if (PhotonNetwork.IsMasterClient)
+            if (player == 1)
             {
                 this.photonView.RPC("ExperimentFinished", RpcTarget.All, 1);
             }
@@ -114,7 +74,7 @@ public class StudyManager : MonoBehaviourPun
         remainingVisualizations.Remove(selectedVisualization);
         this.photonView.RPC("SetCurrentVisualizationMethod", RpcTarget.All, selectedVisualization);
 
-        if (PhotonNetwork.IsMasterClient)
+        if (player == 1)
         {
             startingTime = DateTime.Now;
         }
@@ -150,7 +110,7 @@ public class StudyManager : MonoBehaviourPun
 
         if (hasPlayerOneFinishedExperiment == true && hasPlayerTwoFinishedExperiment == true)
         {
-            if (PhotonNetwork.IsMasterClient)
+            if (player == 1)
             {
                 endingTime = DateTime.Now;
                 experimentDuration = (endingTime - startingTime);
@@ -160,8 +120,20 @@ public class StudyManager : MonoBehaviourPun
                 this.photonView.RPC("GetExperimentTimes", RpcTarget.MasterClient);
             }
 
-            roomManager.LeaveRoom();
+            SetupAndLaunchEvaluation();
         }
+    }
+
+    private void SetupAndLaunchEvaluation()
+    {
+        hasPlayerOneFinishedExperiment = false;
+        hasPlayerTwoFinishedExperiment = false;
+
+        startingTime = new DateTime();
+        endingTime = new DateTime();
+        experimentDuration = new TimeSpan();
+
+        evaluationManager.LaunchEvaluation(player, roomManager);
     }
 
     [PunRPC]
@@ -177,5 +149,6 @@ public class StudyManager : MonoBehaviourPun
     {
         this.photonView.RPC("SetExperimentTimes", RpcTarget.All, this.startingTime.ToString(), this.endingTime.ToString());
     }
+
 
 }
