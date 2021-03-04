@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System;
 
 public class StudyManager : MonoBehaviourPun
 {
@@ -28,55 +29,54 @@ public class StudyManager : MonoBehaviourPun
 
     }
     
-    [SerializeField]
     private int currentVisualizationMethod;
-    [SerializeField]
     private List<int> remainingVisualizations;
 
-    [SerializeField]
     private bool hasPlayerOneFinishedExperiment;
-    [SerializeField]
     private bool hasPlayerTwoFinishedExperiment;
 
-    [SerializeField]
     private RoomManager roomManager;
 
-    private IEnumerator visualizationCoroutine;
-
     System.Random random;
+
+    private DateTime startingTime;
+    private DateTime endingTime;
+    private TimeSpan experimentDuration;
 
     private void Awake()
     {
         roomManager = GameObject.FindObjectOfType<RoomManager>();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
-
+    
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (SceneManager.GetActiveScene().name == "Main")
         {
-            GetNextVisualization();
-        }
-        else
-        {
-            this.photonView.RPC("GetCurrentVisualizationMethod", RpcTarget.MasterClient);
+            startingTime = new DateTime();
+            endingTime = new DateTime();
+            experimentDuration = new TimeSpan();
+
+            hasPlayerOneFinishedExperiment = false;
+            hasPlayerTwoFinishedExperiment = false;
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                GetNextVisualization();
+            }
+            else
+            {
+                this.photonView.RPC("GetCurrentVisualizationMethod", RpcTarget.MasterClient);
+            }
         }
 
-        if (visualizationCoroutine != null)
-        {
-            StopCoroutine(visualizationCoroutine);
-            visualizationCoroutine = StartNextVisualization();
-            StartCoroutine(visualizationCoroutine);
-        }
-        else
-        {
-            visualizationCoroutine = StartNextVisualization();
-            StartCoroutine(visualizationCoroutine);
-        }
     }
 
     void Start()
     {
+        hasPlayerOneFinishedExperiment = false;
+        hasPlayerTwoFinishedExperiment = false;
+
         DontDestroyOnLoad(this.transform);
 
         random = new System.Random();
@@ -91,17 +91,6 @@ public class StudyManager : MonoBehaviourPun
             this.photonView.RPC("GetCurrentVisualizationMethod", RpcTarget.MasterClient);
         }
 
-        if (visualizationCoroutine != null)
-        {
-            StopCoroutine(visualizationCoroutine);
-            visualizationCoroutine = StartNextVisualization();
-            StartCoroutine(visualizationCoroutine);
-        }
-        else
-        {
-            visualizationCoroutine = StartNextVisualization();
-            StartCoroutine(visualizationCoroutine);
-        }
     }
 
     void Update()
@@ -119,35 +108,16 @@ public class StudyManager : MonoBehaviourPun
         }
     }
 
-    IEnumerator StartNextVisualization()
-    {
-        while (!hasPlayerOneFinishedExperiment && !hasPlayerTwoFinishedExperiment)
-        {
-            Debug.Log("Study not yet finished");
-            yield return null;
-        }
-
-        Debug.Log("############ STUDY FINISHED!!");
-
-        hasPlayerOneFinishedExperiment = false;
-        hasPlayerTwoFinishedExperiment = false;
-
-        if (remainingVisualizations.Count == 0)
-        {
-            roomManager.LeaveRoom();
-        }
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.LoadLevel("Evaluation");
-        }
-    }
-
     private void GetNextVisualization()
     {
         int selectedVisualization = remainingVisualizations[random.Next(remainingVisualizations.Count)];
         remainingVisualizations.Remove(selectedVisualization);
         this.photonView.RPC("SetCurrentVisualizationMethod", RpcTarget.All, selectedVisualization);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            startingTime = DateTime.Now;
+        }
     }
 
     [PunRPC]
@@ -172,10 +142,40 @@ public class StudyManager : MonoBehaviourPun
         if (finishedPlayer == 1)
         {
             this.hasPlayerOneFinishedExperiment = true;
-
-        }else if (finishedPlayer == 2)
+        }
+        else if (finishedPlayer == 2)
         {
             this.hasPlayerTwoFinishedExperiment = true;
         }
+
+        if (hasPlayerOneFinishedExperiment == true && hasPlayerTwoFinishedExperiment == true)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                endingTime = DateTime.Now;
+                experimentDuration = (endingTime - startingTime);
+            }
+            else
+            {
+                this.photonView.RPC("GetExperimentTimes", RpcTarget.MasterClient);
+            }
+
+            PhotonNetwork.LoadLevel("Evaluation");
+        }
     }
+
+    [PunRPC]
+    public void SetExperimentTimes(string startingTime, string endingTime)
+    {
+        this.startingTime = Convert.ToDateTime(startingTime);
+        this.endingTime = Convert.ToDateTime(endingTime);
+        this.experimentDuration = this.endingTime - this.startingTime;
+    }
+
+    [PunRPC]
+    public void GetExperimentTimes()
+    {
+        this.photonView.RPC("SetExperimentTimes", RpcTarget.All, this.startingTime.ToString(), this.endingTime.ToString());
+    }
+
 }
