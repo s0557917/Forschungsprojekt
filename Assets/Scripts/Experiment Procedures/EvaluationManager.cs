@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class EvaluationManager : MonoBehaviour
 {
-    public Vector3 evalRoomOnePlayerPosition;
-    public Vector3 evalRoomOnePlayerRotation;
-    public Vector3 evalRoomTwoPlayerPosition;
-    public Vector3 evalRoomTwoPlayerRotation;
+    Vector3 evalRoomOnePlayerPosition;
+    Vector3 evalRoomOnePlayerRotation;
+    Vector3 evalRoomTwoPlayerPosition;
+    Vector3 evalRoomTwoPlayerRotation;
 
     private GameObject vrPlayer;
     private RoomManager roomManager;
@@ -17,7 +17,21 @@ public class EvaluationManager : MonoBehaviour
 
     private void Start()
     {
+        evalRoomOnePlayerPosition = new Vector3(25, 0.1f, -1 );
+        evalRoomOnePlayerRotation = Vector3.zero;
+        evalRoomTwoPlayerPosition = new Vector3(50, 0.1f, -1);
+        evalRoomTwoPlayerRotation = Vector3.zero;
+
         vrPlayer = GameObject.FindGameObjectWithTag("VRPlayer");
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            //RPC TO SYNCHRONIZE RETURN
+            ReturnToExperiment();
+        }
     }
 
     public void LaunchEvaluation(int player, RoomManager roomManager)

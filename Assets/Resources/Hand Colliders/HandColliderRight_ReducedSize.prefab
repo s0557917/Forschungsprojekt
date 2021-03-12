@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7393135015851646926}
   - component: {fileID: 7442225948106468530}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: finger_ring_2_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 7393135020536554672}
   - component: {fileID: 7422643251932091722}
   - component: {fileID: 7361235176517878718}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: HandColliderRight_ReducedSize
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7393135014722335514}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: fingers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7393135015210051728}
   - component: {fileID: 7442225967875099240}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: finger_index_0_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 7393135016982021204}
   - component: {fileID: 7413691931406572836}
   - component: {fileID: 7392523400299506294}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7393135017378726976}
   - component: {fileID: 7442225947969244398}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: thumb_distal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 7393135016465094724}
   - component: {fileID: 7413691946333877166}
   - component: {fileID: 7442225970238465464}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Sphere (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7393135020398693114}
   - component: {fileID: 7442225967875229764}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: finger_middle_2_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -418,7 +418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7393135014711272546}
   - component: {fileID: 7442225967502302728}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: finger_pinky_2_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7393135017663864180}
   - component: {fileID: 7442225970057949492}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: finger_middle_0_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,7 +506,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7393135017503535284}
   - component: {fileID: 7442225947212138102}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: finger_index_1_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +550,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7393135017989472484}
   - component: {fileID: 7442225967193489294}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: finger_ring_1_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -594,7 +594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7393135017016951266}
   - component: {fileID: 7442225967384699174}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: finger_middle_1_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -638,7 +638,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7393135015112289534}
   - component: {fileID: 7442225970365022146}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: finger_index_2_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -681,7 +681,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7393135015220875960}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: spheres
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -717,7 +717,7 @@ GameObject:
   - component: {fileID: 7393135020342620794}
   - component: {fileID: 7413691946531049488}
   - component: {fileID: 7442225970575153632}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -770,7 +770,7 @@ GameObject:
   - component: {fileID: 7393135017166864678}
   - component: {fileID: 7413691931581933948}
   - component: {fileID: 7442225947780155550}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Sphere (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -822,7 +822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7393135017571254580}
   - component: {fileID: 7442225967906945036}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: finger_pinky_1_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
