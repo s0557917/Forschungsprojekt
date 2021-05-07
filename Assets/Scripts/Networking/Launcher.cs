@@ -4,6 +4,8 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using UnityEngine.SceneManagement;
+using UnityEngine.XR;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -19,6 +21,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        XRSettings.enabled = true;
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
@@ -73,7 +76,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             statusText.text = "We load the 'Room for 1' ";
             Debug.Log("LOADED MAIN LEVEL");
-            PhotonNetwork.LoadLevel("Main");
+            PhotonNetwork.LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
 

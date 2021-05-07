@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a89f3ed80faa9314abea6de5915015bd, type: 3}
+  m_Name: Simulation Sickness Questionnaire
+  m_EditorClassIdentifier: 
+  title: Simulation Sickness Questionnaire
+  questions:
+  - {fileID: 11400000, guid: 98894e847a7713248be716a0f74d0282, type: 2}
+  - {fileID: 11400000, guid: 9b416014c83636f4488bf35ac2aff0bf, type: 2}
+  - {fileID: 11400000, guid: cc79947612c598947945078e1ec3cfb2, type: 2}
+  - {fileID: 11400000, guid: a0a6eeb61cfb6074b8227959158a7a6d, type: 2}
+  - {fileID: 11400000, guid: 022266a5097370641b3083628f132ac6, type: 2}
+  - {fileID: 11400000, guid: fbda4184c7359d949baeac8a28c2ac9c, type: 2}
+  partitionCount: 10

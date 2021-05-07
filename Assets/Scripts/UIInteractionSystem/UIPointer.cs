@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Valve.VR;
 
 public class UIPointer : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class UIPointer : MonoBehaviour
     Material hitLineMaterial;
     [SerializeField]
     Material noHitLineMaterial;
+
+    public SteamVR_Action_Boolean interactWithUI = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("default", "InteractUI");
 
     float startLineWidth = 0.01f;
     float endLineWidth = 0.001f;
@@ -45,16 +48,15 @@ public class UIPointer : MonoBehaviour
 
         if (hit.collider != null )
         {
-            
             Button selectedButton = hit.collider.GetComponent<Button>();
 
             if (selectedButton != null )
             {
+                selectedButton.Select();
                 endPosition = hit.point;
                 lineRenderer.material = hitLineMaterial;
-                selectedButton.transition = Selectable.Transition.ColorTint;
 
-                if (Input.GetKeyDown(KeyCode.T))
+                if (interactWithUI.state)
                 {
                     selectedButton.onClick.Invoke();
                 }
