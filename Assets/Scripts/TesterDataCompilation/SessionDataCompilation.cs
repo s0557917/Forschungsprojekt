@@ -105,6 +105,7 @@ public class SessionDataCompilation : MonoBehaviour
         demographicDataString.AppendLine("----------- Demographic Data -----------");
 
         FileWriter.WriteToFile(path, demographicDataString.ToString());
+        XRSettings.enabled = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
