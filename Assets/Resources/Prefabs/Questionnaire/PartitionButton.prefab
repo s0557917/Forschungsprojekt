@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 593395877560057613}
   - component: {fileID: 593395877560057608}
   - component: {fileID: 593395877560057615}
+  - component: {fileID: 3277618496638961851}
   - component: {fileID: 593395877560057614}
   - component: {fileID: 597691567883386862}
   m_Layer: 5
@@ -61,12 +62,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.2206746, g: 0.8207547, b: 0.3232229, a: 1}
@@ -91,6 +92,27 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3277618496638961851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593395877560057612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9612527ae622d428dd6e752b9be679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  hoverColor:
+    serializedVersion: 2
+    rgba: 4278249727
+  downColor:
+    serializedVersion: 2
+    rgba: 4278255409
 --- !u!114 &593395877560057614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,7 +148,7 @@ BoxCollider:
   m_GameObject: {fileID: 593395877560057612}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.78113055, y: 0.7712618, z: 0.029884562}
   m_Center: {x: 0.0060796738, y: 0.0011454225, z: -0.0037808926}

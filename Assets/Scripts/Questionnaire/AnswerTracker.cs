@@ -28,16 +28,16 @@ namespace VrPassing.Questionnaires
             paginationButton = this.transform.parent.GetChild(1).GetComponent<Button>();
             paginationButton.interactable = false;
 
-            if (disablePaginationCoroutine != null)
-            {
-                StopCoroutine(disablePaginationCoroutine);
-                disablePaginationCoroutine = null;
-            }
-            else
-            {
-                disablePaginationCoroutine = DisablePaginationUntilAnswered();
-                StartCoroutine(disablePaginationCoroutine);
-            }
+            //if (disablePaginationCoroutine != null)
+            //{
+            //    StopCoroutine(disablePaginationCoroutine);
+            //    disablePaginationCoroutine = null;
+            //}
+            //else
+            //{
+            //    disablePaginationCoroutine = DisablePaginationUntilAnswered();
+            //    StartCoroutine(disablePaginationCoroutine);
+            //}
         }
 
         private IEnumerator DisablePaginationUntilAnswered()

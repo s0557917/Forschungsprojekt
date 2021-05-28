@@ -2,90 +2,94 @@
 using UnityEngine.UI;
 using Valve.VR;
 
-public class UIPointer : MonoBehaviour
+namespace VrPassing.UIInteraction
 {
-    [SerializeField]
-    private float defaultLength = 10;
-
-    [SerializeField]
-    Material hitLineMaterial;
-    [SerializeField]
-    Material noHitLineMaterial;
-
-    public SteamVR_Action_Boolean interactWithUI = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("default", "InteractUI");
-
-    float startLineWidth = 0.01f;
-    float endLineWidth = 0.001f;
-    LineRenderer lineRenderer;
-
-    int combinedAndInvertedLayerMasks = ~((1 << 8) | (1 << 9));
-
-    Vector3 endPosition;
-    [SerializeField]
-    GameObject pointerDot;
-
-    void Start()
+    public class UIPointer : MonoBehaviour
     {
-        lineRenderer = gameObject.GetComponent<LineRenderer>();
-        if (lineRenderer == null){
-            lineRenderer = gameObject.AddComponent<LineRenderer>();
-        }
+        [SerializeField] private float defaultLength = 10;
+        [SerializeField] private Material hitLineMaterial;
+        [SerializeField] private Material noHitLineMaterial;
+        [SerializeField] private GameObject pointerDot;
+        [SerializeField] private VRInputModule inputModule;
 
-        lineRenderer.startWidth = startLineWidth;
-        lineRenderer.endWidth = endLineWidth;
-        lineRenderer.material = noHitLineMaterial;
-    }
+        public SteamVR_Action_Boolean interactWithUI = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("default", "InteractUI");
 
-    private void FixedUpdate()
-    {
-        UpdateLine();
-    }
+        float startLineWidth = 0.01f;
+        float endLineWidth = 0.001f;
+        LineRenderer lineRenderer;
 
-    private void UpdateLine()
-    {
-        float targetLength = defaultLength;
-        RaycastHit hit = CreateRaycast();
+        //int combinedAndInvertedLayerMasks = ~((1 << 8) | (1 << 9));
 
-        if (hit.collider != null )
+        Vector3 endPosition;
+
+        void Start()
         {
-            Button selectedButton = hit.collider.GetComponent<Button>();
-
-            if (selectedButton != null )
+            lineRenderer = gameObject.GetComponent<LineRenderer>();
+            if (lineRenderer == null)
             {
-                selectedButton.Select();
-                endPosition = hit.point;
-                lineRenderer.material = hitLineMaterial;
+                lineRenderer = gameObject.AddComponent<LineRenderer>();
+            }
 
-                if (interactWithUI.state)
-                {
-                    selectedButton.onClick.Invoke();
-                }
-            }
-            else
-            {
-                endPosition = transform.position + (transform.forward * targetLength);
-                lineRenderer.material = noHitLineMaterial;
-            }
-        }
-        else
-        {
-            endPosition = transform.position + (transform.forward * targetLength);
+            lineRenderer.startWidth = startLineWidth;
+            lineRenderer.endWidth = endLineWidth;
             lineRenderer.material = noHitLineMaterial;
         }
 
-        pointerDot.transform.position = endPosition;
+        private void FixedUpdate()
+        {
+            UpdateLine();
+        }
 
-        lineRenderer.SetPosition(0, transform.position);
-        lineRenderer.SetPosition(1, endPosition);
+        private void UpdateLine()
+        {
+            float targetLength = defaultLength;
+            RaycastHit hit = CreateRaycast();
+            Vector3 endPosition = transform.position + (transform.forward * targetLength);
 
-    }
+            if (hit.collider != null)
+            {
+                endPosition = hit.point;
 
-    private RaycastHit CreateRaycast()
-    {
-        RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.forward);
-        Physics.Raycast(ray, out hit, defaultLength, combinedAndInvertedLayerMasks);
+                //Button selectedButton = hit.collider.GetComponent<Button>();
 
-        return hit;
+                //if (selectedButton != null)
+                //{
+                //    selectedButton.Select();
+                //    endPosition = hit.point;
+                //    lineRenderer.material = hitLineMaterial;
+
+                //    if (interactWithUI.stateDown)
+                //    {
+                //        selectedButton.onClick.Invoke();
+                //    }
+                //}
+                //else
+                //{
+                //    endPosition = transform.position + (transform.forward * targetLength);
+                //    lineRenderer.material = noHitLineMaterial;
+                //}
+            }
+            //else
+            //{
+            //    endPosition = transform.position + (transform.forward * targetLength);
+            //    lineRenderer.material = noHitLineMaterial;
+            //}
+
+            pointerDot.transform.position = endPosition;
+
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, endPosition);
+
+        }
+
+        private RaycastHit CreateRaycast()
+        {
+            RaycastHit hit;
+            Ray ray = new Ray(transform.position, transform.forward);
+            //Physics.Raycast(ray, out hit, defaultLength, combinedAndInvertedLayerMasks);
+            Physics.Raycast(ray, out hit, defaultLength);
+
+            return hit;
+        }
     }
 }

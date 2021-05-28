@@ -14,7 +14,7 @@ namespace Valve.VR.InteractionSystem
     {
         [Tooltip("Hand collider prefab to instantiate")]
         public HandCollider handColliderPrefab;
-        [HideInInspector]
+        [SerializeField]
         public HandCollider handCollider;
 
         [Tooltip("Layers to consider when checking if an area is clear")]
