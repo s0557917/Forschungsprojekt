@@ -19,26 +19,33 @@ namespace VrPassing.Questionnaires
         {
             XRSettings.enabled = true;
             questionnaireGenerator = this.GetComponent<QuestionnaireUIGenerator>();
+
+            //GenerateQuestionnaire();
         }
 
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
-                generatedQuestionnaires = questionnaireGenerator.GenerateQuestionnaire(questionnaires, questionsPerPage);
-
-                for (int i = 1; i < generatedQuestionnaires.Count; i++)
-                {
-                    generatedQuestionnaires[i].questionnaireUI.SetActive(false);
-                }
-
-                AddPaginationFunctionality(this.gameObject);
+                GenerateQuestionnaire();
             }
 
             if (Input.GetKeyDown(KeyCode.D))
             {
                 questionnaireGenerator.DestroyQuestionnaires();
             }
+        }
+
+        private void GenerateQuestionnaire()
+        {
+            generatedQuestionnaires = questionnaireGenerator.GenerateQuestionnaireUI(questionnaires, questionsPerPage);
+
+            for (int i = 1; i < generatedQuestionnaires.Count; i++)
+            {
+                generatedQuestionnaires[i].questionnaireUI.SetActive(false);
+            }
+
+            AddPaginationFunctionality(this.gameObject);
         }
 
         private void AddPaginationFunctionality(GameObject questionnaireManager)

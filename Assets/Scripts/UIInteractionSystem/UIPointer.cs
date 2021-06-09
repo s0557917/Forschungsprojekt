@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Valve.VR;
 
@@ -10,7 +11,6 @@ namespace VrPassing.UIInteraction
         [SerializeField] private Material hitLineMaterial;
         [SerializeField] private Material noHitLineMaterial;
         [SerializeField] private GameObject pointerDot;
-        [SerializeField] private VRInputModule inputModule;
 
         public SteamVR_Action_Boolean interactWithUI = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("default", "InteractUI");
 
@@ -18,7 +18,7 @@ namespace VrPassing.UIInteraction
         float endLineWidth = 0.001f;
         LineRenderer lineRenderer;
 
-        //int combinedAndInvertedLayerMasks = ~((1 << 8) | (1 << 9));
+        int combinedAndInvertedLayerMasks = ~((1 << 8) | (1 << 9));
 
         Vector3 endPosition;
 
@@ -50,32 +50,41 @@ namespace VrPassing.UIInteraction
             {
                 endPosition = hit.point;
 
-                //Button selectedButton = hit.collider.GetComponent<Button>();
+                try
+                {
+                    Button selectedButton = hit.collider.transform?.parent.GetComponent<Button>();
 
-                //if (selectedButton != null)
-                //{
-                //    selectedButton.Select();
-                //    endPosition = hit.point;
-                //    lineRenderer.material = hitLineMaterial;
+                    if (selectedButton != null)
+                    {
+                        selectedButton.Select();
+                        endPosition = hit.point;
+                        lineRenderer.material = hitLineMaterial;
 
-                //    if (interactWithUI.stateDown)
-                //    {
-                //        selectedButton.onClick.Invoke();
-                //    }
-                //}
-                //else
-                //{
-                //    endPosition = transform.position + (transform.forward * targetLength);
-                //    lineRenderer.material = noHitLineMaterial;
-                //}
+                        if ((selectedButton.CompareTag("PartitionButton") || selectedButton.CompareTag("PaginationButton")) && interactWithUI.stateDown)
+                        {
+                            selectedButton.onClick.Invoke();
+                        }
+                        else if (selectedButton.CompareTag("SliderButton") && interactWithUI.state)
+                        {
+                            selectedButton.onClick.Invoke();
+                        }
+                    }
+                    else
+                    {
+                        endPosition = transform.position + (transform.forward * targetLength);
+                        lineRenderer.material = noHitLineMaterial;
+                    }
+                }
+                catch (System.Exception)
+                {
+
+                }
             }
-            //else
-            //{
-            //    endPosition = transform.position + (transform.forward * targetLength);
-            //    lineRenderer.material = noHitLineMaterial;
-            //}
-
-            pointerDot.transform.position = endPosition;
+            else
+            {
+                endPosition = transform.position + (transform.forward * targetLength);
+                lineRenderer.material = noHitLineMaterial;
+            }
 
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, endPosition);
@@ -86,8 +95,7 @@ namespace VrPassing.UIInteraction
         {
             RaycastHit hit;
             Ray ray = new Ray(transform.position, transform.forward);
-            //Physics.Raycast(ray, out hit, defaultLength, combinedAndInvertedLayerMasks);
-            Physics.Raycast(ray, out hit, defaultLength);
+            Physics.Raycast(ray, out hit, defaultLength, combinedAndInvertedLayerMasks);
 
             return hit;
         }

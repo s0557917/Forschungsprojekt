@@ -12,27 +12,49 @@ namespace VrPassing.Questionnaires
         public string questionnaireTitle;
         public string question;
         public string answer;
+        public Questionnaire.ScaleType scaleType;
 
         private List<Button> buttons;
         private QuestionnaireManager questionnaireManager;
+        private Slider sliderScale;
 
         void Start()
         {
+            if (scaleType == Questionnaire.ScaleType.Slider)
+            {
+                sliderScale = this.transform.GetChild(0).GetComponent<SliderScale>().slider;
+                sliderScale?.onValueChanged.AddListener(delegate { SaveSliderValue(); });
+            }
+
             buttons = this.GetComponentsInChildren<Button>().ToList();
-            buttons.ForEach(button => button.onClick.AddListener(() => SaveAnswer(button)));
+            buttons.ForEach(button => button.onClick.AddListener(() => SaveButtonValue(button)));
             questionnaireManager = GameObject.FindObjectOfType<QuestionnaireManager>();
         }
 
-        private void SaveAnswer(Button currentButton)
+        private void SaveButtonValue(Button currentButton)
         {
-            answer = currentButton.GetComponentInChildren<TextMeshProUGUI>().text;
-            buttons.ForEach(button => button.interactable = false);
+            if (scaleType == Questionnaire.ScaleType.IntegerPartitions)
+            {
+                answer = currentButton.GetComponentInChildren<TextMeshProUGUI>().text;
+                buttons.ForEach(button => button.interactable = false);
+            }
+        }
 
+        private void SaveSliderValue()
+        {
+            if (scaleType == Questionnaire.ScaleType.Slider)
+            {
+                answer = sliderScale.value.ToString();
+                Debug.Log("VALUE CHANGED: " + answer);
+            }
         }
 
         private void OnDestroy()
         {
-            buttons.ForEach(button => button.onClick.RemoveAllListeners());
+            if (buttons != null && buttons.Count > 1)
+            {
+                buttons.ForEach(button => button.onClick.RemoveAllListeners());
+            }
         }
     }
 }

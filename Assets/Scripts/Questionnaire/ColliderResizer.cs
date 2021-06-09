@@ -2,34 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class ColliderResizer : MonoBehaviour
 {
-    public BoxCollider boxCollider;
-    public RectTransform rectTransform;
-    public float width;
-    public float height;
+    [SerializeField] GameObject colliderCube;
+    [SerializeField] RectTransform buttonRectTransform;
 
-    public Vector3 colliderSize;
+    float buttonWidth;
+    float buttonHeight;
 
-    void Start()
+    private void Start()
     {
-        rectTransform = this.GetComponent<RectTransform>();
-        width = rectTransform.sizeDelta.x;
-        height = rectTransform.sizeDelta.y;
-
-        boxCollider = this.GetComponent<BoxCollider>();
-        boxCollider.size = new Vector3(1f, 0.5f, 0.1f);
-        colliderSize = boxCollider.size;
+        resizeColliderCube();
     }
 
-    //private void Update()
-    //{
-    //    width = rectTransform.sizeDelta.x;
-    //    height = rectTransform.sizeDelta.y;
+    private void OnRectTransformDimensionsChange()
+    {
+        resizeColliderCube();
+    }
 
+    private void resizeColliderCube()
+    {
+        buttonWidth = buttonRectTransform.rect.width;
+        buttonHeight = buttonRectTransform.rect.height;
 
-    //    colliderSize = boxCollider.size;
-    //    boxCollider.size = new Vector3(width, height, boxCollider.size.z);
-
-    //}
+        colliderCube.transform.localScale = new Vector3(buttonWidth, buttonHeight, 0.1f);
+    }
 }

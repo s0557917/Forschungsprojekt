@@ -19,6 +19,8 @@ namespace VrPassing.Questionnaires
         private GameObject questionPrefab;
         [SerializeField]
         private GameObject partitionButtonPrefab;
+        [SerializeField]
+        private GameObject sliderScalaPrefab;
         private int questionsPerPage;
         private List<AnswerContainer> answerContainers = new List<AnswerContainer>();
 
@@ -35,7 +37,7 @@ namespace VrPassing.Questionnaires
             }
         }
 
-        public List<QuestionnaireUIContainer> GenerateQuestionnaire(List<Questionnaire> questionnaires, int questionsPerPage)
+        public List<QuestionnaireUIContainer> GenerateQuestionnaireUI(List<Questionnaire> questionnaires, int questionsPerPage)
         {
             this.questionsPerPage = questionsPerPage;
             List<QuestionnaireUIContainer> questionnaireUIs = new List<QuestionnaireUIContainer>();
@@ -46,7 +48,7 @@ namespace VrPassing.Questionnaires
                 questionnaireUIInstance.name = questionnaire.title;
                 questionnaireUIInstance.transform.GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = questionnaire.title;
 
-                QuestionnairePage[] questionnairePages = GeneratePages(questionnaire.questions, questionnaire.title, questionnaireUIInstance.transform, questionnaire.partitionCount);
+                QuestionnairePage[] questionnairePages = GeneratePages(questionnaire.questions, questionnaire.title, questionnaireUIInstance.transform, questionnaire.scaleStart, questionnaire.scaleEnd, questionnaire.partitionCount, questionnaire.scaleType);
                 QuestionnaireUIContainer questionnaireData = new QuestionnaireUIContainer(questionnaireUIInstance, questionnairePages, answerContainers);
                 questionnaireUIs.Add(questionnaireData);
             }
@@ -54,7 +56,7 @@ namespace VrPassing.Questionnaires
             return questionnaireUIs;
         }
 
-        private QuestionnairePage[] GeneratePages(List<QuestionnaireQuestion> questions, string questionnaireTitle, Transform questionnaireUIInstance, int partitions)
+        private QuestionnairePage[] GeneratePages(List<QuestionnaireQuestion> questions, string questionnaireTitle, Transform questionnaireUIInstance, float scaleStart, float scaleEnd, int partitions, Questionnaire.ScaleType scaleType)
         {
             int pageCount = (int)Math.Ceiling((double)questions.Count / questionsPerPage);
             GameObject[] pageUIs = new GameObject[pageCount];
@@ -96,12 +98,19 @@ namespace VrPassing.Questionnaires
                 {
                     try
                     {
-                        GameObject firstPartitionContainer = AddQuestionsToPage(questions[j], pageUIs[pageCounter].transform, questionnaireTitle);
-                        AddButtons(partitions, firstPartitionContainer.transform);
+                        GameObject scaleContainer = AddQuestionsToPage(questions[j], pageUIs[pageCounter].transform, questionnaireTitle, scaleType);
+                        if (scaleType == Questionnaire.ScaleType.IntegerPartitions)
+                        {
+                            SetupLayoutGroup(scaleContainer);
+                            AddButtons(scaleStart, scaleEnd, partitions, scaleContainer.transform);
+                        }
+                        else if (scaleType == Questionnaire.ScaleType.Slider)
+                        {
+                            AddSlider(scaleContainer.transform, scaleStart, scaleEnd);
+                        }
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
-                        Debug.Log("NO QUESTION HERE -- NEEDS TO BE FIXED!!");
                     }
                 }
 
@@ -111,7 +120,19 @@ namespace VrPassing.Questionnaires
             return questionnairePages;
         }
 
-        private GameObject AddQuestionsToPage(QuestionnaireQuestion question, Transform questionContainer, string questionnaireTitle)
+        private void SetupLayoutGroup(GameObject scaleContainer)
+        {
+            HorizontalLayoutGroup layoutGroup = scaleContainer.AddComponent<HorizontalLayoutGroup>();
+            layoutGroup.childAlignment = TextAnchor.MiddleCenter;
+            layoutGroup.childControlWidth = true;
+            layoutGroup.childControlHeight = true;
+            layoutGroup.childScaleWidth = false;
+            layoutGroup.childScaleHeight = false;
+            layoutGroup.childForceExpandWidth = true;
+            layoutGroup.childForceExpandHeight = true;
+        }
+
+        private GameObject AddQuestionsToPage(QuestionnaireQuestion question, Transform questionContainer, string questionnaireTitle, Questionnaire.ScaleType scaleType)
         {
             GameObject questionInstance = GameObject.Instantiate(questionPrefab, questionContainer.GetChild(0).transform);
             questionInstance.name = question.question;
@@ -119,21 +140,34 @@ namespace VrPassing.Questionnaires
             questionInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = question.leftText;
             questionInstance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = question.rightText;
 
-            GameObject partitionContainer = questionInstance.transform.GetChild(3).gameObject;
-            AnswerContainer answerContainer = partitionContainer.GetComponent<AnswerContainer>();
+            GameObject scaleContainer = questionInstance.transform.GetChild(3).gameObject;
+            AnswerContainer answerContainer = scaleContainer.GetComponent<AnswerContainer>();
             answerContainer.questionnaireTitle = questionnaireTitle;
             answerContainer.question = question.question;
+            answerContainer.scaleType = scaleType;
             answerContainers.Add(answerContainer);
-            return partitionContainer;
+            return scaleContainer;
         }
 
-        private void AddButtons(int partitions, Transform partitionContainer)
+        private void AddButtons(float scaleStart, float scaleEnd, int partitions, Transform scaleContainer)
         {
+            float scaleIncrementSize = (scaleEnd - scaleStart) / partitions;
+            float currentPartitionValue = scaleStart;
+
             for (int i = 0; i < partitions; i++)
             {
-                GameObject instantiatedButton = GameObject.Instantiate(partitionButtonPrefab, partitionContainer);
-                instantiatedButton.GetComponentInChildren<TextMeshProUGUI>().text = i.ToString();
+                GameObject instantiatedButton = Instantiate(partitionButtonPrefab, scaleContainer);
+                instantiatedButton.GetComponentInChildren<TextMeshProUGUI>().text = currentPartitionValue.ToString();
+                currentPartitionValue += scaleIncrementSize;
             }
+        }
+
+        private void AddSlider(Transform scaleContainer, float sliderStart, float sliderEnd)
+        {
+            GameObject instantiatedSlider = Instantiate(sliderScalaPrefab, scaleContainer);
+            SliderScale sliderScale = instantiatedSlider.GetComponent<SliderScale>();
+            sliderScale.slider.minValue = sliderStart;
+            sliderScale.slider.maxValue = sliderEnd;
         }
     }
 }

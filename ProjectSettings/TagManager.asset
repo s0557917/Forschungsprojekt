@@ -12,6 +12,13 @@ TagManager:
   - LeftHand_VR
   - Head_VR
   - StudyManager
+  - projectile
+  - FxTemporaire
+  - PartitionButton
+  - PaginationButton
+  - SliderButton
+  - FeedbackElement
+  - UISlider
   layers:
   - Default
   - TransparentFX

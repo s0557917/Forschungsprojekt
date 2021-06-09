@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: NASA TLX
   m_EditorClassIdentifier: 
   title: NASA TLX
+  scaleStart: 1
+  scaleEnd: 10
+  partitionCount: 9
+  scaleType: 0
   questions:
   - {fileID: 11400000, guid: f1f3297e06d30d349977856c77b9dbed, type: 2}
   - {fileID: 11400000, guid: dc35f9f2c2dea8948ae5a1da7f505b22, type: 2}
@@ -23,4 +27,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7ba2aaa9f60550743b4a999f1b103cc4, type: 2}
   - {fileID: 11400000, guid: 511ec61136bc12041af2370e227db0ee, type: 2}
   - {fileID: 11400000, guid: 8d2cf339de9a2d640aaf8db29da82887, type: 2}
-  partitionCount: 10
