@@ -14,13 +14,14 @@ namespace VrPassing.UIInteraction
 
         public SteamVR_Action_Boolean interactWithUI = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("default", "InteractUI");
 
-        float startLineWidth = 0.01f;
-        float endLineWidth = 0.001f;
-        LineRenderer lineRenderer;
+        private float startLineWidth = 0.01f;
+        private float endLineWidth = 0.001f;
+        private LineRenderer lineRenderer;
 
-        int combinedAndInvertedLayerMasks = ~((1 << 8) | (1 << 9));
+        private int combinedAndInvertedLayerMasks = ~((1 << 8) | (1 << 9));
 
-        Vector3 endPosition;
+        private Vector3 endPosition;
+        private SliderController sliderController;
 
         void Start()
         {
@@ -52,32 +53,56 @@ namespace VrPassing.UIInteraction
 
                 try
                 {
-                    Button selectedButton = hit.collider.transform?.parent.GetComponent<Button>();
-
-                    if (selectedButton != null)
+                    switch (hit.collider.gameObject.tag)
                     {
-                        selectedButton.Select();
-                        endPosition = hit.point;
-                        lineRenderer.material = hitLineMaterial;
+                        case "PartitionButton":
+                        case "PaginationButton":
 
-                        if ((selectedButton.CompareTag("PartitionButton") || selectedButton.CompareTag("PaginationButton")) && interactWithUI.stateDown)
-                        {
-                            selectedButton.onClick.Invoke();
-                        }
-                        else if (selectedButton.CompareTag("SliderButton") && interactWithUI.state)
-                        {
-                            selectedButton.onClick.Invoke();
-                        }
-                    }
-                    else
-                    {
-                        endPosition = transform.position + (transform.forward * targetLength);
-                        lineRenderer.material = noHitLineMaterial;
+                            Button selectedButton = hit.collider.transform?.parent.GetComponent<Button>();
+                            if (selectedButton != null)
+                            {
+                                selectedButton.Select();
+                                endPosition = hit.point;
+                                lineRenderer.material = hitLineMaterial;
+
+                                if (interactWithUI.stateDown)
+                                {
+                                    selectedButton.onClick.Invoke();
+                                }
+                            }
+
+                            break;
+                        case "SliderHandle":
+
+                            Slider selectedSlider = hit.collider.transform?.parent.transform.parent.transform.parent.GetComponent<Slider>();
+                            if (selectedSlider != null)
+                            {
+                                selectedSlider.Select();
+                                sliderController = selectedSlider.GetComponent<SliderController>();
+                                endPosition = hit.point;
+                                lineRenderer.material = hitLineMaterial;
+
+                                if (interactWithUI.state && !sliderController.wasHandleSelected)
+                                {
+                                    sliderController.wasHandleSelected = true;
+                                    sliderController.clickingController = this.transform.parent.gameObject;
+                                    Debug.Log("STARTING POSITION CHANGED");
+                                    sliderController.startingPosition = this.transform.position;
+                                }
+                            }
+
+                            break;
+                        default:
+
+                            endPosition = transform.position + (transform.forward * targetLength);
+                            lineRenderer.material = noHitLineMaterial;
+
+                            break;
                     }
                 }
-                catch (System.Exception)
+                catch (System.Exception e)
                 {
-
+                    Debug.LogError(e.ToString());
                 }
             }
             else

@@ -20,7 +20,7 @@ namespace VrPassing.Questionnaires
             XRSettings.enabled = true;
             questionnaireGenerator = this.GetComponent<QuestionnaireUIGenerator>();
 
-            //GenerateQuestionnaire();
+            GenerateQuestionnaire();
         }
 
         void Update()

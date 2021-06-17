@@ -5,4 +5,5 @@ namespace VrPassing.Events
 {
     [Serializable]
     public class UpdateSliderEvent : UnityEvent<string> { }
+
 }

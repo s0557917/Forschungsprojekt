@@ -67,15 +67,15 @@ namespace VrPassing.Grabbing
         {
             if (collision.gameObject.layer == cubeLayer && collision.contacts.Length > 0)
             {
-                Debug.Log("COLLIDING");
-                //StringBuilder sb = new StringBuilder();
-                //sb.Append("OnStay:: ");
-                //foreach (var item in collision.contacts)
-                //{
-                //    sb.Append("(" + item.thisCollider.name + "||" + item.otherCollider.name  + ") - ");
-                //}
+                //Debug.Log("COLLIDING");
+                StringBuilder sb = new StringBuilder();
+                sb.Append("++++++ OnStay:: ");
+                foreach (var item in collision.contacts)
+                {
+                    sb.Append("(" + item.thisCollider.name + "||" + item.otherCollider.name + ") - ");
+                }
 
-                //Debug.Log(sb.ToString());
+                Debug.Log(sb.ToString());
                 lastContactPoints = collision.contacts;
             }
         }
@@ -85,7 +85,7 @@ namespace VrPassing.Grabbing
             if (collision.gameObject.layer == cubeLayer)
             {
                 StringBuilder sb = new StringBuilder();
-                sb.Append("OnExit:: ");
+                sb.Append("----- OnExit:: ");
                 foreach (var item in lastContactPoints)
                 {
                     sb.Append("(" + item.thisCollider.name + "||" + item.otherCollider.name + ") - ");

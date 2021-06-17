@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7552903316380502730}
   - component: {fileID: 3716039815291021994}
   m_Layer: 5
-  m_Name: Button Container
+  m_Name: Scale Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,6 +87,7 @@ MonoBehaviour:
   questionnaireTitle: 
   question: 
   answer: 
+  scaleType: 0
 --- !u!1 &7552903316417258272
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,13 +16,12 @@ namespace VrPassing.Questionnaires
 
         private List<Button> buttons;
         private QuestionnaireManager questionnaireManager;
-        private Slider sliderScale;
+        [SerializeField] private Slider sliderScale;
 
         void Start()
         {
             if (scaleType == Questionnaire.ScaleType.Slider)
             {
-                sliderScale = this.transform.GetChild(0).GetComponent<SliderScale>().slider;
                 sliderScale?.onValueChanged.AddListener(delegate { SaveSliderValue(); });
             }
 
@@ -45,7 +44,6 @@ namespace VrPassing.Questionnaires
             if (scaleType == Questionnaire.ScaleType.Slider)
             {
                 answer = sliderScale.value.ToString();
-                Debug.Log("VALUE CHANGED: " + answer);
             }
         }
 

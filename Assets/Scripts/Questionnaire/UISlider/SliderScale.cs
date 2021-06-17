@@ -2,6 +2,7 @@
 using UnityEngine;
 using VrPassing.Events;
 
+//TODO - REMOVE
 public class SliderScale : MonoBehaviour
 {
     public float slideValue = 0.1f;

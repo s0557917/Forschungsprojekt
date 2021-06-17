@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliderCube: {fileID: 4020958287697305133}
-  buttonRectTransform: {fileID: 3770838414108307627}
+  rectTransform: {fileID: 3770838414108307627}
 --- !u!1 &3770838414259996047
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7037949bf875424a9846d197f97fde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paginationButton: {fileID: 0}
+  paginationButton: {fileID: 3770838414108307625}
 --- !u!1 &3770838415942405160
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 3770838415942405158}
   m_Layer: 5
   m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_TagString: PaginationButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.35
+  m_fontSize: 25.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 5710356806001612083}
   m_Layer: 5
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: PaginationButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -404,7 +404,7 @@ RectTransform:
   m_GameObject: {fileID: 4020958287697305133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 62.201614, y: 28.321371, z: 0.1}
+  m_LocalScale: {x: 65.982834, y: 28.951406, z: 0.1}
   m_Children: []
   m_Father: {fileID: 3770838414108307627}
   m_RootOrder: 1

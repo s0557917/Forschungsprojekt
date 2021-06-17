@@ -402,6 +402,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &579855243 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 160596, guid: dc06161b6d97feb419f45f03b62e14b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 571353283}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &579855244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579855243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdea972b1cecc354d9cac31208a1ecaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &580744007 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 358094753382975053, guid: 4b96b7919e060db46a2fc5b628047189,
@@ -689,7 +707,19 @@ PrefabInstance:
         type: 3}
       propertyPath: sliderScalaPrefab
       value: 
-      objectReference: {fileID: 3383827644057653832, guid: 0be429db812433f438cf4ae5c0a00fef,
+      objectReference: {fileID: 3383827644057653832, guid: ad8046197728bea4ead9e14dd5ea815d,
+        type: 3}
+    - target: {fileID: 358094753382975090, guid: 4b96b7919e060db46a2fc5b628047189,
+        type: 3}
+      propertyPath: questionButtonPrefab
+      value: 
+      objectReference: {fileID: 7951841774677545970, guid: 58fdac4db19dde64892f28cc1fc663a9,
+        type: 3}
+    - target: {fileID: 358094753382975090, guid: 4b96b7919e060db46a2fc5b628047189,
+        type: 3}
+      propertyPath: questionSliderPrefab
+      value: 
+      objectReference: {fileID: 5080232770346191254, guid: 600f5302de07579498d603f71e38dfad,
         type: 3}
     - target: {fileID: 358094753382975090, guid: 4b96b7919e060db46a2fc5b628047189,
         type: 3}
@@ -700,13 +730,19 @@ PrefabInstance:
     - target: {fileID: 358094753382975091, guid: 4b96b7919e060db46a2fc5b628047189,
         type: 3}
       propertyPath: questionnaires.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 358094753382975091, guid: 4b96b7919e060db46a2fc5b628047189,
         type: 3}
       propertyPath: questionnaires.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: c5baa80285d2f7149b66cb3328f57f2a,
+        type: 2}
+    - target: {fileID: 358094753382975091, guid: 4b96b7919e060db46a2fc5b628047189,
+        type: 3}
+      propertyPath: questionnaires.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: a3cdb41ba2abc634c93b664f7a160176,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b96b7919e060db46a2fc5b628047189, type: 3}
@@ -970,6 +1006,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3561805564115436331}
     m_Modifications:
+    - target: {fileID: 3383827642520595494, guid: 0be429db812433f438cf4ae5c0a00fef,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: -22.655222
+      objectReference: {fileID: 0}
+    - target: {fileID: 3383827642520595494, guid: 0be429db812433f438cf4ae5c0a00fef,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: -65.43501
+      objectReference: {fileID: 0}
+    - target: {fileID: 3383827643156335337, guid: 0be429db812433f438cf4ae5c0a00fef,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00001859665
+      objectReference: {fileID: 0}
     - target: {fileID: 3383827644057653832, guid: 0be429db812433f438cf4ae5c0a00fef,
         type: 3}
       propertyPath: m_Name
@@ -1079,6 +1130,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3383827644245578798, guid: 0be429db812433f438cf4ae5c0a00fef,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: -28.95424
+      objectReference: {fileID: 0}
+    - target: {fileID: 3383827644245578798, guid: 0be429db812433f438cf4ae5c0a00fef,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: -71.787125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0be429db812433f438cf4ae5c0a00fef, type: 3}
@@ -1649,3 +1710,4 @@ MonoBehaviour:
   questionnaireTitle: 
   question: 
   answer: 
+  scaleType: 0

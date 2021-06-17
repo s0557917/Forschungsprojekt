@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fb5bf6050ff08a42b675d3ea2516bcb, type: 3}
   m_Name: Test question 1
   m_EditorClassIdentifier: 
-  question: TEST 1
+  question: Test Question 2
   leftText: L
   rightText: R

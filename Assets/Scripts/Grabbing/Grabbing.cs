@@ -88,14 +88,14 @@ namespace VrPassing.Grabbing
             ringInteractionNotification.AddListener(RingListener);
             pinkyInteractionNotification.AddListener(PinkyListener);
 
-            HandCollisionDetection interactionNotifier = handCollider.gameObject.AddComponent<HandCollisionDetection>();
+            //HandCollisionDetection interactionNotifier = handCollider.gameObject.AddComponent<HandCollisionDetection>();
 
-            interactionNotifier.SetupFingerEvents(thumbInteractionNotification, 
-                indexInteractionNotification, 
-                middleInteractionNotification, 
-                ringInteractionNotification, 
-                pinkyInteractionNotification
-            );
+            //interactionNotifier.SetupFingerEvents(thumbInteractionNotification, 
+            //    indexInteractionNotification, 
+            //    middleInteractionNotification, 
+            //    ringInteractionNotification, 
+            //    pinkyInteractionNotification
+            //);
         }
 
         private void FixedUpdate()

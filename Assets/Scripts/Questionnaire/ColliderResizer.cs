@@ -6,10 +6,10 @@ using UnityEngine;
 public class ColliderResizer : MonoBehaviour
 {
     [SerializeField] GameObject colliderCube;
-    [SerializeField] RectTransform buttonRectTransform;
+    [SerializeField] RectTransform rectTransform;
 
-    float buttonWidth;
-    float buttonHeight;
+    float width;
+    float height;
 
     private void Start()
     {
@@ -23,9 +23,9 @@ public class ColliderResizer : MonoBehaviour
 
     private void resizeColliderCube()
     {
-        buttonWidth = buttonRectTransform.rect.width;
-        buttonHeight = buttonRectTransform.rect.height;
+        width = rectTransform.rect.width;
+        height = rectTransform.rect.height;
 
-        colliderCube.transform.localScale = new Vector3(buttonWidth, buttonHeight, 0.1f);
+        colliderCube.transform.localScale = new Vector3(width, height, 0.1f);
     }
 }

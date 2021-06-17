@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliderCube: {fileID: 3840419528275766610}
-  buttonRectTransform: {fileID: 593395877560057613}
+  rectTransform: {fileID: 593395877560057613}
 --- !u!1 &593395879053921457
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 593395879053921459}
   m_Layer: 5
   m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_TagString: PartitionButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 3121887887741632046}
   m_Layer: 5
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: PartitionButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

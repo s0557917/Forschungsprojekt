@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a89f3ed80faa9314abea6de5915015bd, type: 3}
-  m_Name: TestQuestionnaire
+  m_Name: Test Button Questionnaire
   m_EditorClassIdentifier: 
-  title: Test Questionnaire
-  scaleStart: 3
-  scaleEnd: 5
-  partitionCount: 10
-  scaleType: 1
+  title: Test Button Questionnaire
+  scaleStart: 5
+  scaleEnd: 10
+  partitionCount: 5
+  scaleType: 0
   questions:
-  - {fileID: 11400000, guid: ad077596765298747854cd815c684d85, type: 2}
-  - {fileID: 11400000, guid: 2f3842f8e25a124439f395b8b3c0c9ee, type: 2}
+  - {fileID: 11400000, guid: 25830b27fcc7c514daab7fa53aa1bef3, type: 2}
+  - {fileID: 11400000, guid: 684a1352718c3364bbc023022c5e9d78, type: 2}

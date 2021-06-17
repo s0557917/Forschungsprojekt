@@ -9,22 +9,25 @@ namespace VrPassing.Questionnaires
 {
     public class QuestionnaireUIGenerator : MonoBehaviour
     {
-        private GameObject questionnaireCanvas;
+        public GameObject questionnaireCanvas;
 
         [SerializeField]
         private GameObject questionnaireUIPrefab;
         [SerializeField]
         private GameObject questionContainerPrefab;
         [SerializeField]
-        private GameObject questionPrefab;
+        private GameObject questionButtonPrefab;
+        [SerializeField]
+        private GameObject questionSliderPrefab;
         [SerializeField]
         private GameObject partitionButtonPrefab;
         [SerializeField]
         private GameObject sliderScalaPrefab;
+
         private int questionsPerPage;
         private List<AnswerContainer> answerContainers = new List<AnswerContainer>();
 
-        void Start()
+        void Awake()
         {
             questionnaireCanvas = this.gameObject;
         }
@@ -104,10 +107,6 @@ namespace VrPassing.Questionnaires
                             SetupLayoutGroup(scaleContainer);
                             AddButtons(scaleStart, scaleEnd, partitions, scaleContainer.transform);
                         }
-                        else if (scaleType == Questionnaire.ScaleType.Slider)
-                        {
-                            AddSlider(scaleContainer.transform, scaleStart, scaleEnd);
-                        }
                     }
                     catch (Exception)
                     {
@@ -134,7 +133,21 @@ namespace VrPassing.Questionnaires
 
         private GameObject AddQuestionsToPage(QuestionnaireQuestion question, Transform questionContainer, string questionnaireTitle, Questionnaire.ScaleType scaleType)
         {
-            GameObject questionInstance = GameObject.Instantiate(questionPrefab, questionContainer.GetChild(0).transform);
+            GameObject questionInstance = null;
+
+            switch (scaleType)
+            {
+                case Questionnaire.ScaleType.IntegerPartitions:
+                    questionInstance = GameObject.Instantiate(questionButtonPrefab, questionContainer.GetChild(0).transform);
+                    break;
+                case Questionnaire.ScaleType.Slider:
+                    questionInstance = GameObject.Instantiate(questionSliderPrefab, questionContainer.GetChild(0).transform);
+                    break;
+                default:
+                    Debug.Log("No valid scale type!");
+                    break;
+            }
+
             questionInstance.name = question.question;
             questionInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = question.question;
             questionInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = question.leftText;
@@ -146,6 +159,7 @@ namespace VrPassing.Questionnaires
             answerContainer.question = question.question;
             answerContainer.scaleType = scaleType;
             answerContainers.Add(answerContainer);
+
             return scaleContainer;
         }
 
@@ -160,14 +174,6 @@ namespace VrPassing.Questionnaires
                 instantiatedButton.GetComponentInChildren<TextMeshProUGUI>().text = currentPartitionValue.ToString();
                 currentPartitionValue += scaleIncrementSize;
             }
-        }
-
-        private void AddSlider(Transform scaleContainer, float sliderStart, float sliderEnd)
-        {
-            GameObject instantiatedSlider = Instantiate(sliderScalaPrefab, scaleContainer);
-            SliderScale sliderScale = instantiatedSlider.GetComponent<SliderScale>();
-            sliderScale.slider.minValue = sliderStart;
-            sliderScale.slider.maxValue = sliderEnd;
         }
     }
 }
