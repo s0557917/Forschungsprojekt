@@ -2,43 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SetVRControllerChildTags : MonoBehaviour
+namespace VrPassing.Utilities
 {
-    // Start is called before the first frame update
-    void Start()
+    public class SetVRControllerChildTags : MonoBehaviour
     {
-        //SetTagOfAllChildren(this.transform);
-        //foreach (Transform child in this.transform)
+        // Start is called before the first frame update
+        void Start()
+        {
+            //SetTagOfAllChildren(this.transform);
+            //foreach (Transform child in this.transform)
+            //{
+            //    child.tag = "VRController";
+            //}
+
+            //GameObject controllerRight = transform.GetChild(6).gameObject;
+            //GameObject controllerLeft = transform.GetChild(7).gameObject;
+
+            //Debug.Log("## LEFT: " + controllerLeft.name + " - RIGHT: " + controllerRight.name);
+
+            //controllerRight.tag = "VRController";
+            //controllerRight.tag = "VRController";
+        }
+
+
+        //private void SetTagOfAllChildren(Transform parent)
         //{
-        //    child.tag = "VRController";
+        //    foreach (Transform child in parent)
+        //    {
+        //        child.gameObject.tag = "VRController";
+        //        SetTagOfAllChildren(child);
+        //    }
         //}
 
-        //GameObject controllerRight = transform.GetChild(6).gameObject;
-        //GameObject controllerLeft = transform.GetChild(7).gameObject;
-
-        //Debug.Log("## LEFT: " + controllerLeft.name + " - RIGHT: " + controllerRight.name);
-
-        //controllerRight.tag = "VRController";
-        //controllerRight.tag = "VRController";
-    }
-
-
-    //private void SetTagOfAllChildren(Transform parent)
-    //{
-    //    foreach (Transform child in parent)
-    //    {
-    //        child.gameObject.tag = "VRController";
-    //        SetTagOfAllChildren(child);
-    //    }
-    //}
-
-    private void OnTransformChildrenChanged()
-    {
-        foreach (Transform child in this.transform)
+        private void OnTransformChildrenChanged()
         {
-            if (child.name.Equals("HandColliderLeft(Clone)") || child.name.Equals("HandColliderRight(Clone)"))
+            foreach (Transform child in this.transform)
             {
-                child.tag = "VRController";
+                if (child.name.Equals("HandColliderLeft(Clone)") || child.name.Equals("HandColliderRight(Clone)"))
+                {
+                    child.tag = "VRController";
+                }
             }
         }
     }

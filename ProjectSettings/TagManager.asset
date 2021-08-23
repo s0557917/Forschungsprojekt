@@ -19,6 +19,9 @@ TagManager:
   - FeedbackElement
   - UISlider
   - SliderHandle
+  - PlayerOne Scene UI
+  - PlayerTwo Scene UI
+  - PassedCube
   layers:
   - Default
   - TransparentFX

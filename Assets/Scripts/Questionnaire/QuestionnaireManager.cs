@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.XR;
-using VrPassing.Helpers;
+using VrPassing.Utilities;
 
 namespace VrPassing.Questionnaires
 {

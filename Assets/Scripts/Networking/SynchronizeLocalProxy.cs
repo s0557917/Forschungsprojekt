@@ -9,8 +9,8 @@ public class SynchronizeLocalProxy : MonoBehaviour
 {
     [Header("VR Objects")]
     public GameObject head;
-    public GameObject rightHand;
-    public GameObject leftHand;
+    public Hand rightHand;
+    public Hand leftHand;
 
     [Header("Local Proxy Objects")]
     public GameObject headProxy;
@@ -59,56 +59,63 @@ public class SynchronizeLocalProxy : MonoBehaviour
             _leftHandJoints[i + 1] = leftChildren[i];
         }
 
-        _rightHandSkeleton = rightHand.GetComponentInChildren<SteamVR_Behaviour_Skeleton>();
-        _leftHandSkeleton = leftHand.GetComponentInChildren<SteamVR_Behaviour_Skeleton>();
+        if (rightHand != null && leftHand != null)
+        {
+            _rightHandSkeleton = rightHand.skeleton;
+            _leftHandSkeleton = leftHand.skeleton;
+        }
     }
 
     void Update()
     {
-        #region Set Skeleton Scripts
-
-        if (!_isLeftSkeletonSet)
+        if (rightHand != null && leftHand != null)
         {
-            if (_leftHandSkeleton == null )
-            {
-                _leftHandSkeleton = leftHand.GetComponentInChildren<SteamVR_Behaviour_Skeleton>();
+            #region Set Skeleton Scripts
 
-                if (_leftHandSkeleton != null)
+            if (!_isLeftSkeletonSet)
+            {
+                if (_leftHandSkeleton == null)
+                {
+                    _leftHandSkeleton = leftHand.skeleton;
+
+                    if (_leftHandSkeleton != null)
+                    {
+                        _isLeftSkeletonSet = true;
+                    }
+                }
+                else
                 {
                     _isLeftSkeletonSet = true;
                 }
             }
-            else
-            {
-                _isLeftSkeletonSet = true;
-            }
-        }
 
-        if (!_isRightSkeletonSet)
-        {
-            if (_rightHandSkeleton == null)
+            if (!_isRightSkeletonSet)
             {
-                _rightHandSkeleton = rightHand.GetComponentInChildren<SteamVR_Behaviour_Skeleton>();
-
-                if (_rightHandSkeleton != null)
+                if (_rightHandSkeleton == null)
                 {
-                    _isRightSkeletonSet = true;
+                    _rightHandSkeleton = rightHand.skeleton;
+
+                    if (_rightHandSkeleton != null)
+                    {
+                        _isRightSkeletonSet = true;
+                    }
                 }
             }
+            else
+            {
+                _isRightSkeletonSet = true;
+            }
+
+            #endregion
+
+            headProxy.transform.localPosition = head.transform.position;
+            headProxy.transform.localRotation = head.transform.rotation;
+
+
+            UpdateLeftHandBones();
+            UpdateRightHandBones();
+
         }
-        else
-        {
-            _isRightSkeletonSet = true;
-        }
-
-        #endregion
-
-        headProxy.transform.localPosition = head.transform.position;
-        headProxy.transform.localRotation = head.transform.rotation;
-
-        UpdateLeftHandBones();
-
-        UpdateRightHandBones();
         
     }
     private void UpdateLeftHandBones()
@@ -187,10 +194,10 @@ public class SynchronizeLocalProxy : MonoBehaviour
 
         //Thumb
         _leftHandJoints[22].position = _leftHandSkeleton.GetBone(SteamVR_Skeleton_JointIndexes.thumbMetacarpal).position;
-        _leftHandJoints[22].rotation = _leftHandSkeleton.GetBone(SteamVR_Skeleton_JointIndexes.thumbMetacarpal).rotation;
+        _leftHandJoints[22].rotation = _leftHandSkeleton.GetBone(SteamVR_Skeleton_JointIndexes.thumbMetacarpal).rotation ;
 
         _leftHandJoints[23].position = _leftHandSkeleton.GetBone(SteamVR_Skeleton_JointIndexes.thumbProximal).position;
-        _leftHandJoints[23].rotation = _leftHandSkeleton.GetBone(SteamVR_Skeleton_JointIndexes.thumbProximal).rotation;
+        _leftHandJoints[23].rotation = _leftHandSkeleton.GetBone(SteamVR_Skeleton_JointIndexes.thumbProximal).rotation ;
 
         _leftHandJoints[24].position = _leftHandSkeleton.GetBone(SteamVR_Skeleton_JointIndexes.thumbMiddle).position;
         _leftHandJoints[24].rotation = _leftHandSkeleton.GetBone(SteamVR_Skeleton_JointIndexes.thumbMiddle).rotation;

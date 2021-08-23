@@ -14,99 +14,114 @@ namespace VrPassing.Grabbing
         private SteamVR_Action_Single gripSqueeze = SteamVR_Input.GetAction<SteamVR_Action_Single>("Squeeze");
         [SerializeField] private float gripStrength;
 
-        private HandSide currentHandSide = HandSide.Undefined;
+        //private HandSide currentHandSide = HandSide.Undefined;
         private HandPhysics handPhysics;
         private HandCollider handCollider;
         private IEnumerator colliderEnumerator;
         private UnityEvent handColliderSet;
 
-        private FingerInteractionNotification thumbInteractionNotification;
-        private FingerInteractionNotification indexInteractionNotification;
-        private FingerInteractionNotification middleInteractionNotification;
-        private FingerInteractionNotification ringInteractionNotification;
-        private FingerInteractionNotification pinkyInteractionNotification;
+        //private FingerInteractionNotification thumbInteractionNotification;
+        //private FingerInteractionNotification indexInteractionNotification;
+        //private FingerInteractionNotification middleInteractionNotification;
+        //private FingerInteractionNotification ringInteractionNotification;
+        //private FingerInteractionNotification pinkyInteractionNotification;
 
         [SerializeField] private bool canGrabObject = false;
 
         [SerializeField] private int touchingFingers = 0;
 
-        [SerializeField] private bool isThumbTouchingCube = false;
-        [SerializeField] private bool isIndexTouchingCube = false;
-        [SerializeField] private bool isMiddleTouchingCube = false;
-        [SerializeField] private bool isRingTouchingCube = false;
-        [SerializeField] private bool isPinkyTouchingCube = false;
+        public bool isThumbTouchingCube = false;
+        public bool isIndexTouchingCube = false;
+        public bool isMiddleTouchingCube = false;
+        public bool isRingTouchingCube = false;
+        public bool isPinkyTouchingCube = false;
 
-        [SerializeField]GameObject currentCollidingObject;
+        public GameObject grabbedObject;
+        private GameObject grabbedObjectParent;
 
-        private enum HandSide
+        //private enum HandSide
+        //{
+        //    Undefined,
+        //    Right,
+        //    Left
+        //}
+
+        //void Start()
+        //{
+        //    handColliderSet = new UnityEvent();
+        //    handColliderSet.AddListener(() => SetupFingerEvents());
+        //    GetHandCollider();
+        //}
+
+        //private void GetHandCollider()
+        //{
+        //    handPhysics = this.GetComponent<HandPhysics>();
+        //    colliderEnumerator = WaitAndGetCollider();
+        //    StartCoroutine(colliderEnumerator);
+        //    currentHandSide = this.gameObject.name.Contains("Right") ? HandSide.Right : HandSide.Left;
+        //}
+
+        //private IEnumerator WaitAndGetCollider()
+        //{
+        //    WaitForEndOfFrame waitEndOfFrame = new WaitForEndOfFrame();
+
+        //    while (handCollider == null)
+        //    {
+        //        handCollider = handPhysics.handCollider;
+        //        yield return waitEndOfFrame;
+        //    }
+
+        //    handColliderSet.Invoke();
+        //    yield return null;
+        //}
+
+        //private void SetupFingerEvents()
+        //{
+        //    thumbInteractionNotification = new FingerInteractionNotification();
+        //    indexInteractionNotification = new FingerInteractionNotification();
+        //    middleInteractionNotification = new FingerInteractionNotification();
+        //    ringInteractionNotification = new FingerInteractionNotification();
+        //    pinkyInteractionNotification = new FingerInteractionNotification();
+
+        //    thumbInteractionNotification.AddListener(ThumbListener);
+        //    indexInteractionNotification.AddListener(IndexListener);
+        //    middleInteractionNotification.AddListener(MiddleListener);
+        //    ringInteractionNotification.AddListener(RingListener);
+        //    pinkyInteractionNotification.AddListener(PinkyListener);
+
+        //    //HandCollisionDetection interactionNotifier = handCollider.gameObject.AddComponent<HandCollisionDetection>();
+
+        //    //interactionNotifier.SetupFingerEvents(thumbInteractionNotification, 
+        //    //    indexInteractionNotification, 
+        //    //    middleInteractionNotification, 
+        //    //    ringInteractionNotification, 
+        //    //    pinkyInteractionNotification
+        //    //);
+        //}
+
+        private bool IsHandTouchingObject()
         {
-            Undefined,
-            Right,
-            Left
-        }
-
-        void Start()
-        {
-            handColliderSet = new UnityEvent();
-            handColliderSet.AddListener(() => SetupFingerEvents());
-            GetHandCollider();
-        }
-
-        private void GetHandCollider()
-        {
-            handPhysics = this.GetComponent<HandPhysics>();
-            colliderEnumerator = WaitAndGetCollider();
-            StartCoroutine(colliderEnumerator);
-            currentHandSide = this.gameObject.name.Contains("Right") ? HandSide.Right : HandSide.Left;
-        }
-
-        private IEnumerator WaitAndGetCollider()
-        {
-            WaitForEndOfFrame waitEndOfFrame = new WaitForEndOfFrame();
-
-            while (handCollider == null)
-            {
-                handCollider = handPhysics.handCollider;
-                yield return waitEndOfFrame;
-            }
-
-            handColliderSet.Invoke();
-            yield return null;
-        }
-
-        private void SetupFingerEvents()
-        {
-            thumbInteractionNotification = new FingerInteractionNotification();
-            indexInteractionNotification = new FingerInteractionNotification();
-            middleInteractionNotification = new FingerInteractionNotification();
-            ringInteractionNotification = new FingerInteractionNotification();
-            pinkyInteractionNotification = new FingerInteractionNotification();
-
-            thumbInteractionNotification.AddListener(ThumbListener);
-            indexInteractionNotification.AddListener(IndexListener);
-            middleInteractionNotification.AddListener(MiddleListener);
-            ringInteractionNotification.AddListener(RingListener);
-            pinkyInteractionNotification.AddListener(PinkyListener);
-
-            //HandCollisionDetection interactionNotifier = handCollider.gameObject.AddComponent<HandCollisionDetection>();
-
-            //interactionNotifier.SetupFingerEvents(thumbInteractionNotification, 
-            //    indexInteractionNotification, 
-            //    middleInteractionNotification, 
-            //    ringInteractionNotification, 
-            //    pinkyInteractionNotification
-            //);
+            return isThumbTouchingCube || isIndexTouchingCube || isMiddleTouchingCube || isRingTouchingCube || isPinkyTouchingCube;
         }
 
         private void FixedUpdate()
         {
             gripStrength = gripSqueeze.GetAxis(handType);
             touchingFingers = getTouchingFingersCount();
-            if (gripStrength >= 0.45 && CheckIfHandCanGrab())
+
+            if (/*gripStrength >= 0.15 &&*/ CheckIfHandCanGrab())
             {
                 canGrabObject = true;
-                currentCollidingObject.transform.parent = this.transform;
+                grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
+                grabbedObjectParent = grabbedObject.transform.parent.gameObject;
+                grabbedObject.transform.SetParent(this.transform);
                 Debug.Log("CAN GRAB OBJECT");
+            }
+            else if (grabbedObject != null)
+            {
+                grabbedObject.GetComponent<Rigidbody>().useGravity = true;
+                grabbedObject.transform.SetParent(grabbedObjectParent.transform);
+                grabbedObjectParent = null;
             }
         }
 
@@ -161,9 +176,9 @@ namespace VrPassing.Grabbing
         private void IndexListener(bool isTouchingCube, GameObject collisionObject)
         {
 
-            if (collisionObject != currentCollidingObject )
+            if (collisionObject != grabbedObject)
             {
-                currentCollidingObject = collisionObject;
+                grabbedObject = collisionObject;
             }
             isIndexTouchingCube = isTouchingCube;
         }
@@ -171,9 +186,9 @@ namespace VrPassing.Grabbing
         private void MiddleListener(bool isTouchingCube, GameObject collisionObject)
         {
 
-            if (collisionObject != currentCollidingObject)
+            if (collisionObject != grabbedObject)
             {
-                currentCollidingObject = collisionObject;
+                grabbedObject = collisionObject;
             }
 
             isMiddleTouchingCube = isTouchingCube;
@@ -182,9 +197,9 @@ namespace VrPassing.Grabbing
         private void RingListener(bool isTouchingCube, GameObject collisionObject)
         {
 
-            if (collisionObject != currentCollidingObject)
+            if (collisionObject != grabbedObject)
             {
-                currentCollidingObject = collisionObject;
+                grabbedObject = collisionObject;
             }
 
             isRingTouchingCube = isTouchingCube;
@@ -193,9 +208,9 @@ namespace VrPassing.Grabbing
         private void PinkyListener(bool isTouchingCube, GameObject collisionObject)
         {
 
-            if (collisionObject != currentCollidingObject)
+            if (collisionObject != grabbedObject)
             {
-                currentCollidingObject = collisionObject;
+                grabbedObject = collisionObject;
             }
             isPinkyTouchingCube = isTouchingCube;
         }

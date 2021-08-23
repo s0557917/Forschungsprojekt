@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Valve.VR.InteractionSystem;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
@@ -55,11 +56,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         SynchronizeLocalProxy synchronizer = instantiatedPlayerProxy.GetComponent<SynchronizeLocalProxy>();
         synchronizer.head = GameObject.FindGameObjectWithTag("Head_VR");
-        synchronizer.rightHand = GameObject.FindGameObjectWithTag("RightHand_VR");
-        synchronizer.leftHand = GameObject.FindGameObjectWithTag("LeftHand_VR");
+        synchronizer.rightHand = GameObject.FindGameObjectWithTag("RightHand_VR").GetComponent<Hand>();
+        synchronizer.leftHand = GameObject.FindGameObjectWithTag("LeftHand_VR").GetComponent<Hand>();
     }
 
-    public override void OnPlayerLeftRoom(Player other)
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player other)
     {
         Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
     }

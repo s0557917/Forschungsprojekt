@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
 using TMPro;
-using VrPassing.Helpers;
+using VrPassing.Utilities;
 using UnityEngine.SceneManagement;
 
 public class SessionDataCompilation : MonoBehaviour

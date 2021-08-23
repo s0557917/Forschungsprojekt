@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace VrPassing.Helpers
+namespace VrPassing.Utilities
 {
     public class FileWriter
     {
